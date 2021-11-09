@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@rd-nx-stores/header": ["libs/header/src/index.ts"]
+      "@rd-nx-stores/header": ["libs/header/src/index.ts"],
+      "@rd-nx-stores/stepper": ["libs/stepper/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

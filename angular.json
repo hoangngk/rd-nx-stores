@@ -208,6 +208,32 @@
       },
       "tags": [],
       "implicitDependencies": ["header"]
+    },
+    "stepper": {
+      "projectType": "library",
+      "root": "libs/stepper",
+      "sourceRoot": "libs/stepper/src",
+      "prefix": "rd-nx-stores",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/stepper"],
+          "options": {
+            "jestConfig": "libs/stepper/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/stepper/src/**/*.ts",
+              "libs/stepper/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
     }
   }
 }
