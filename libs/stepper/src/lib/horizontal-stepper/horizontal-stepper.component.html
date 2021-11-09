@@ -1,21 +1,22 @@
-<section class="example-container">
-  Step content
-  <header>
-    <h2>Step {{ selectedIndex + 1 }}/{{ steps.length }}</h2>
+<section class="container">
+  <!-- The navbar for the wizard -->
+  <header class="header">
+    <ol>
+      <ng-container *ngFor="let step of steps; let i = index;">
+        <li [ngClass]="(selectedIndex === i) ? activeClass : ''">
+          <a (click)="selectedIndex = i">
+            <ng-container *ngIf="step.stepLabel; else showLabelText" [ngTemplateOutlet]="step.stepLabel.template">
+            </ng-container>
+            <ng-template #showLabelText>
+              {{ step.label }}
+            </ng-template>
+          </a>
+        </li>
+      </ng-container>
+    </ol>
   </header>
 
-  <div [ngTemplateOutlet]="selected ? selected.content : null"></div>
-
-  <footer class="example-step-navigation-bar">
-    <button class="example-nav-button" cdkStepperPrevious>&larr;</button>
-    <button
-      class="example-step"
-      [class.example-active]="selectedIndex === i"
-      *ngFor="let step of steps; let i = index"
-      (click)="selectStepByIndex(i)"
-    >
-      Step {{ i + 1 }}
-    </button>
-    <button class="example-nav-button" cdkStepperNext>&rarr;</button>
-  </footer>
+  <div class="body">
+    <ng-container [ngTemplateOutlet]="selected ? selected.content : null"></ng-container>
+  </div>
 </section>

@@ -21,7 +21,10 @@
               "apps/bike-store/src/favicon.ico",
               "apps/bike-store/src/assets"
             ],
-            "styles": ["apps/bike-store/src/styles.scss"],
+            "styles": [
+              "apps/bike-store/src/styles.scss",
+              "node_modules/bulma/css/bulma.min.css"
+            ],
             "scripts": []
           },
           "configurations": {

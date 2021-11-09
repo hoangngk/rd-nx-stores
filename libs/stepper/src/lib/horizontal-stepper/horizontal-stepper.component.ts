@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CdkStepper } from '@angular/cdk/stepper';
 
 @Component({
@@ -8,13 +8,16 @@ import { CdkStepper } from '@angular/cdk/stepper';
   providers: [{ provide: CdkStepper, useExisting: HorizontalStepperComponent }],
 })
 export class HorizontalStepperComponent extends CdkStepper implements OnInit {
+
   // constructor() { }
+
+  @Input() public activeClass = 'active';
 
   public ngOnInit(): void {
     return;
   }
 
-  public selectStepByIndex(index: number): void {
-    this.selectedIndex = index;
+  isNextButtonHidden() {
+    return !(this.steps.length === this.selectedIndex + 1);
   }
 }
