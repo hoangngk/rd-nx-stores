@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { selectBookCollection, selectBooks } from './state/books.selectors';
+import { GoogleBooksService } from './book-list/books.service';
+import { addBook, removeBook, retrieveBooks } from './state/books.actions';
 
 @Component({
   selector: 'rd-nx-stores-root',
@@ -17,8 +17,14 @@ export class AppComponent implements OnInit {
   public profileForm!: FormGroup;
   public addressForm!: FormGroup;
   public paymentInfoForm!: FormGroup;
+  books$ = this.store.select(selectBooks);
+  bookCollection$ = this.store.select(selectBookCollection);
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private booksService: GoogleBooksService
+  ) {}
 
   public ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -45,9 +51,22 @@ export class AppComponent implements OnInit {
       expiryDate: ['', Validators.compose([Validators.required])],
       cvvCode: ['', Validators.compose([Validators.required])],
     });
+
+    this.booksService
+      .getBooks()
+      .subscribe((books) => this.store.dispatch(retrieveBooks({ books })));
+  }
+
+  onAdd(bookId: string) {
+    this.store.dispatch(addBook({ bookId }));
+  }
+
+  onRemove(bookId: string) {
+    this.store.dispatch(removeBook({ bookId }));
   }
 
   public submit(): void {
     console.log('submitted');
   }
 }
+
